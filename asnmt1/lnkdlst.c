@@ -78,3 +78,8 @@ int main(int argc, char *argv[])
     free(current);
     free(head);
 }
+
+
+
+// insertbefore(head, current)
+// head = current //and you use pointer from search to place value before it

@@ -83,3 +83,5 @@ int main(int argc, char *argv[])
 
 // insertbefore(head, current)
 // head = current //and you use pointer from search to place value before it
+//temp ==search for node
+//delete node at current

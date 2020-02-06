@@ -27,16 +27,43 @@ void Add_At_End(int num, NODE *head){
     
 }
 
+// int Delete_Node(NODE *head, int num)
+// {
+//     //1)Go to node we want to delete
+//     //2)Save the node we want to delete in a temp pointer
+//     //3)Set previous node's next pointer to point toh the node we wish to delete
+//     //4)Delete node using the temp pointer
+
+//     int i = 0;
+//     int retval = -1;
+//     NODE *current = head;
+//     NODE *temp = NULL;
+//     if (num == 0)
+//     {
+//         return head->data;
+//     }
+//        for (i = 0; i < num-1; i++) {
+//         if (current->next == NULL) {
+//             return -1;
+//         }
+//         current = current->next;
+//     }
+//     temp=current->next;
+//     retval=temp->data;
+//     current->next=temp->next;
+//     free(temp);
+//     return retval;
+
+// }
+
+
 int main(int argc, char *argv[])
 {
     NODE *head, *current;
-
     head = (NODE *)malloc(sizeof(NODE));
     head->data = 3;
     head->next = NULL;
-
     printf("%d\n", head->data);
-/*
 
     head->next = (NODE *)malloc(sizeof(NODE));
     head->next->next = NULL;
@@ -51,9 +78,10 @@ int main(int argc, char *argv[])
     head->next->next->next = NULL;
 
     current = head->next->next;
-    current->data = 5;
+
+    current->data = 9;
+
     printf("%d\n", current->data);
-*/
 
     Add_At_End(1, head);
     Add_At_End(2, head);

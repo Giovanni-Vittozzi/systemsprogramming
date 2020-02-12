@@ -52,10 +52,6 @@ int main(int argc, char *argv[])
     free(head);
 }
 
-// insertbefore(head, current)
-// head = current //and you use pointer from search to place value before it
-//temp ==search for node
-//delete node at current
 
 //CHALLENGE: delete list should be recursive
 
@@ -212,4 +208,17 @@ void print_list(NODE *head)
         printf("%d\n", temp->data); //print the data at that node
         temp = temp->next;          //move the pointer forward
     }
+}
+
+NODE *delete_list(NODE *head)
+{
+    NODE *temp = head;
+    if(temp ==NULL)
+    {
+        break;
+    }else{
+           head = temp->next;
+        delete_list(temp);
+    }
+    return head;
 }

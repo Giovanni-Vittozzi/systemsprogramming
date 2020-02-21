@@ -1,5 +1,5 @@
 ///////Giovanni Vittozzi
-///////Submission date:
+///////CSC 290Z
 ///////Due date: 2/21/2020
 
 #include <stdio.h>
@@ -13,25 +13,24 @@ typedef struct Node
 
 } NODE;
 
-// print node pass reference to node to be printed like print n times
 void Add_At_End(NODE *head, int num);                  // function adds new node at end of linked list
-NODE *Insert_Node(NODE *head, int num, int putbefore); // function adds new node at end of linked list
-NODE *findNode(NODE *head, int value);                 //function finds nodebased on given value and returns address of that node
-NODE *deleteNode(NODE *head, int data);                //function deletes node based on given value and uses findeNode to do so
-void print_list(NODE *head);                           //function prints the entire list
-void delete_list(NODE *head);
-void print_node(NODE *to_print); //simply just passes pointer to the function and it prints it
+NODE *Insert_Node(NODE *head, int num, int putbefore); // function inserts new node before another node
+NODE *findNode(NODE *head, int value);                 // function finds node based on given value and returns address of that node
+NODE *deleteNode(NODE *head, int data);                // function deletes node based on given value and uses findeNode to do so
+void print_list(NODE *head);                           // function prints the entire list
+void delete_list(NODE *head);                          // function deletes entire list
+void print_node(NODE *to_print);                       // simply just passes pointer to a node and prints it
 
 int main(int argc, char *argv[])
 {
     NODE *head;
 
-    head = (NODE *)malloc(sizeof(NODE)); //creating first node
-    head->data = 3;                      //data for the first node
-    head->next = NULL;                   //and pointer to null because there aren't any other nodes for now
+    head = (NODE *)malloc(sizeof(NODE)); // creating first node
+    head->data = 3;                      // data for the first node
+    head->next = NULL;                   // and pointer to null because there aren't any other nodes for now
     printf("%d\n", head->data);
 
-    Add_At_End(head, 1);
+    Add_At_End(head, 1); //add test cases
     Add_At_End(head, 2);
     Add_At_End(head, 10);
     Add_At_End(head, 14);
@@ -49,13 +48,14 @@ int main(int argc, char *argv[])
     print_list(head);
     head = Insert_Node(head, 16, 17);
     print_list(head);
-    head = Insert_Node(head, 0, 1);
+    head = Insert_Node(head, 0, 1); //tests inserting a new head
     print_list(head);
 
     print_node(head->next);
 
+    printf("Deleting List\n");
     delete_list(head);
-    // free(head);
+    // free(head); //NOT NECESSARY TO FREE HEAD AFTER DELETING ENTIRE LIST
 }
 
 //CHALLENGE: delete list should be recursive
@@ -74,7 +74,7 @@ void Add_At_End(NODE *head, int num)
     while (save->next != NULL) //moves to the end of the list
     {
         save = save->next; //move this temp pointer to the next Node in the list
-        // printf("current here is: %d\n", *save);
+        // printf("current here is: %d\n", *save); //temporary statement for debugging
     }
     save->next = nodeNew;                      //points the last Node in the list to this new last node
     printf("Node added: %d\n", nodeNew->data); //prints value that was added
@@ -83,7 +83,6 @@ void Add_At_End(NODE *head, int num)
 NODE *Insert_Node(NODE *head, int num, int putbefore)
 {
     printf("Insert_Node is inserting %d before %d\n", num, putbefore);
-    // NODE *tempy = NULL; //temporary pointer to head
     NODE *tempy = head; //temporary pointer to head
     NODE *newNode;      //new node to be added before our value
     newNode = (NODE *)malloc(sizeof(NODE));
@@ -92,11 +91,11 @@ NODE *Insert_Node(NODE *head, int num, int putbefore)
 
     if (head != NULL) //checks if list is empty
     {
-        if (head->data == putbefore)
+        if (head->data == putbefore) //if head is the value that we have to put the new node before, then need new head
         {
             newNode->data = num;
             newNode->next = tempy;
-            head = newNode;
+            head = newNode; //new node becomes head
             return head;
         }
         else
@@ -125,7 +124,7 @@ NODE *Insert_Node(NODE *head, int num, int putbefore)
 
 NODE *findNode(NODE *head, int value) //find function returns pointer to the given node value
 {
-    NODE *current = NULL; //current pointer that we're initializing to 0
+    NODE *current = NULL; //current pointer that we're initializing to NULL
     current = head;       //this current pointer starts at head
     int found = 0;
     // printf("Value: %d\n", value);
@@ -158,7 +157,7 @@ NODE *deleteNode(NODE *head, int value)
     {
         printf("Deleting head %d from the list\n", value);
         head = current->next; //move the head forward
-        printf("head here is %d\n", *head);
+        // printf("head here is %d\n", *head); //prints new head (not necessary for final output)
         current->next = NULL; //Delete the old head
         free(current);        //pretty sure I have to do this here
         return head;          //return the new head
@@ -167,7 +166,7 @@ NODE *deleteNode(NODE *head, int value)
     {
         printf("Deleting %d from the list\n", value);
         NODE *foundNode;
-        foundNode = findNode(head, value);
+        foundNode = findNode(head, value); //returns address of node we want to delete
         if (foundNode != NULL)
         {
             printf("Found node %d\n", foundNode->data);
@@ -178,27 +177,21 @@ NODE *deleteNode(NODE *head, int value)
         }
 
         NODE *temp = head;
-        //check to see if list is empty
-        if ((head != NULL) && (foundNode != NULL))
+        if ((head != NULL) && (foundNode != NULL)) //check to see if list is empty
         {
-            while (temp->next != foundNode)
+            while (temp->next != foundNode) //move to right before node we're looking for
             {
                 temp = temp->next;
             }
-            temp->next = foundNode->next;
+            temp->next = foundNode->next; //move pointer to continue the list
             foundNode->next = NULL;
             printf("Node %d deleted\n", value);
-
-            free(foundNode);
+            free(foundNode); //free memory for node we just deleted
             return head;
-            //return 1; //1 on success
-            //return ;//head? idk
         }
         else
         {
             return head;
-            //return ;//head? idk
-            // return 0; //0 on failure
         }
     }
 }
@@ -208,25 +201,24 @@ void print_list(NODE *head)
     NODE *temp;  //temporary node
     temp = head; //temporary node points to head
     printf("Print function is printing list: \n");
-    while (temp != NULL) //starting at head, while the list isnt empty; or later on why the list isn't yet at the end
+    while (temp != NULL) //starting at head, while the list isnt empty
     {
         printf("%d\n", temp->data); //print the data at that node
         temp = temp->next;          //move the pointer forward
     }
 }
 
-
-void delete_list(NODE* head) 
-{ 
-    printf("Deleting List\n");
-    if (head == NULL) 
-        return; 
-    delete_list(head->next);  
-    free(head); 
+void delete_list(NODE *head)
+{
+    if (head == NULL) //if head is empty then we just return
+        return;
+    printf("Deleting: %d\n", head->data);
+    delete_list(head->next); //recursively go through and free
+    free(head);
 }
 
 void print_node(NODE *to_print)
 {
-    printf("Print Node: %d\n", to_print->data);
+    printf("Print Node: %d\n", to_print->data); //merely prints the node value from the pointer that was passed to it
     // return to_print->data;
 }

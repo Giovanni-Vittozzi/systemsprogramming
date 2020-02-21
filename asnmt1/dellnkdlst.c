@@ -249,6 +249,6 @@ void delete_list(NODE* head)
 //     {
 //         printf("Nell else");
 //         free(temp);
-//         // return head;
+//         return head;
 //     }
 // }

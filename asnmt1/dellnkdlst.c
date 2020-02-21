@@ -19,7 +19,7 @@ NODE *Insert_Node(NODE *head, int num, int putbefore); // function adds new node
 NODE *findNode(NODE *head, int value);                 //function finds nodebased on given value and returns address of that node
 NODE *deleteNode(NODE *head, int data);                //function deletes node based on given value and uses findeNode to do so
 void print_list(NODE *head);                           //function prints the entire list
-NODE *delete_list(NODE *head);
+void delete_list(NODE *head);
 
 int main(int argc, char *argv[])
 {
@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
     head = deleteNode(head, 3);
     print_list(head);
 
-    head = delete_list(head);
-    print_list(head);
+    delete_list(head);
+    // print_list(head);
     free(head);
 }
 
@@ -203,22 +203,52 @@ void print_list(NODE *head)
     }
 }
 
-NODE *delete_list(NODE *head)
-{
-    printf("Deleting List!!!\n");
-    NODE *temp = head;
-    printf("temp predelete: %d\n", temp->data);
-    if (temp == NULL)
-    {
-        return temp;
-    }
-    else
-    {
-        printf("head in dellist is %d\n", temp->data);
+// NODE *delete_list(NODE *head)
+// {
+//     printf("Deleting List!!!\n");
+//     NODE *temp = head;
+//     printf("temp predelete: %d\n", temp->data);
+//     if (temp == NULL)
+//     {
+//         printf("Nullllllll");
+//         return temp;
+//     }
+//     else
+//     {
+//         printf("head in dellist is %d\n", temp->data);
+//         delete_list(temp->next);
 
-        delete_list(temp->next);
+//         free(temp);
+//         return head;
+//     }
+// }
 
-        free(temp);
-        return head;
-    }
-}
+void delete_list(NODE* head) 
+{ 
+    if (head == NULL) 
+        return; 
+    delete_list(head->next);  
+    free(head); 
+} 
+
+//OLD DELETE VERSION
+
+// void delete_list(NODE *head)
+// {
+//     printf("Deleting List\n");
+//     NODE *temp = head;
+//     if (temp != NULL)
+//     {
+//         printf("temp predelete: %d\n", temp->data);
+//         temp = deleteNode(temp, temp->data);
+//         temp = temp->next;
+//         printf("head in dellist is %d\n", temp->data);
+//         delete_list(temp);
+//     }
+//     else
+//     {
+//         printf("Nell else");
+//         free(temp);
+//         // return head;
+//     }
+// }

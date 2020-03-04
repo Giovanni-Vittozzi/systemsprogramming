@@ -21,6 +21,9 @@
 // 	write(STDOUT_FILENO,buff,size);
 // }
 
+///string compare 
+// if(strlin[i] == 'i'){counter ++} //counts occurences
+
 int main(void)
 {
 

@@ -60,7 +60,7 @@ int main(void)
 
 	printf("lseeking...");
 	off_t current_pos;
-	current_pos = lseek(fd_1, 0, SEEK_END);
+	current_pos = lseek(fd_1, 0, SEEK_CUR);
 
 	close(fd_1);
 	return 0;

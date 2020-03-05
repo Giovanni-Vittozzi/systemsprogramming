@@ -17,7 +17,8 @@ int main(void)
     int buff_size = 1;
     char buff[BUFFERSIZE];
     int size;
-    fd = open("MyFile.txt", O_RDONLY);
+    // fd = open("MyFile.txt", O_RDONLY);
+    fd = open("MyFile.txt", O_WRONLY | O_APPEND | O_CREAT, 0666);
 
     if (fd < 0)
     {
@@ -31,3 +32,8 @@ int main(void)
     }
     exit(0);
 }
+
+
+
+	off_t current_pos;
+	current_pos = lseek(fd_1, 0, SEEK_SET);

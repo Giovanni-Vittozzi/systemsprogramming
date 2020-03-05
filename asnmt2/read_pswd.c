@@ -36,7 +36,7 @@ int main(void)
 
 	//first I append to the file, then I read the file and print it 
 	fd = open("MyFile.txt", O_WRONLY | O_APPEND | O_CREAT, 0666);
-	fd_1 = open("MyFile.txt", O_RDONLY);
+	fd_1 = open("MyFile.txt", O_RDONLY); 
 
 	if (fd < 0)
 	{
@@ -49,16 +49,18 @@ int main(void)
 	write(fd, buf, size);
 	close(fd);
 	//read test
+	char h3[] = "H";
 	while ((size = read(fd_1, buff, 1)) > 0)
 	{
 		buff[1] = '\0';
+		int result = strcmp(buff, h3);
 		printf("%s\n", buff);
+		printf("result of compare (0 when equal): %d", result);
 	}
 
 	printf("lseeking...");
 	off_t current_pos;
 	current_pos = lseek(fd_1, 0, SEEK_END);
-
 
 	close(fd_1);
 	return 0;

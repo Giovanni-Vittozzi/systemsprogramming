@@ -10,9 +10,6 @@
 
 #define BUFFERSIZE 4096
 
-
-
-
 int main(void)
 {
 
@@ -20,7 +17,13 @@ int main(void)
     char buf[BUFFERSIZE];
     int size;
 
-    fd = open("MyFile.txt", O_WRONLY | O_APPEND | O_CREAT, 0666);
+    // fd = open("MyFile.txt", O_WRONLY | O_APPEND | O_CREAT, 0666);
+
+    // Open the file for READ only.
+    int f_write = open("MyFile.txt", O_RDONLY);
+
+    // Open the file for WRITE and READ only.
+    int f_read = open("end.txt", O_WRONLY);
 
     if (fd < 0)
     {
@@ -31,20 +34,25 @@ int main(void)
     // size = strlen(buf);
     // size = size +1;
 
-    strcpy(buf, "ABC\n");
-    lseek(fd, 7, SEEK_SET);
+    // strcpy(buf, "ABC\n");
+    // lseek(fd, 7, SEEK_SET);
 
-    write(fd, buf, 3);//writes 3 of the buffer to fd (new file)
-    close(fd);
+    // write(fd, buf, 3); //writes 3 of the buffer to fd (new file)
+    // close(fd);
 
+    char arr[100];
 
-
-    int fd_1 = open("MyFile.txt", O_RDONLY); 
-    while ((size = read(fd_1, buf, 1)) > 0)
+    int fd_1 = open("MyFile.txt", O_RDONLY);
+    while (read(f_write, arr, 1))
     {
-        buf[1] = '\0';
-        printf("%s\n", buf);
+        lseek(f_write, 1, SEEK_SET);
+        //seek current skips number (1) from the spot that it started reading
+        write(f_read, arr, 1);
     }
-    close(fd_1);
+
+    close(f_write);
+    close(f_read);
+
+    // close(fd_1);
     return 0;
 }

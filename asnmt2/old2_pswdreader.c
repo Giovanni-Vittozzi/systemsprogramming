@@ -2,6 +2,8 @@
 // /CSC 290Z
 // /Due date: //2020
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
 #include <string.h>
@@ -9,6 +11,7 @@
 
 #define BUFFERSIZE 4096
 
+// void reader(int f_read,  int length, char arr[length], char *str);
 
 int main(void)
 {
@@ -18,6 +21,7 @@ int main(void)
     int f_write = open("output.txt", O_WRONLY); //save outputted stuff to file
     int i = 0;
     char *str = ":";
+    char *str_empt = " ";
     int colon = 0;
     char printbuff1[BUFFERSIZE];
     char printbuff2[BUFFERSIZE];
@@ -25,25 +29,41 @@ int main(void)
 
     if (f_read < 0) //base case
     {
+        printf("There was an error opening the file\n");
         return -1;
     }
 
     int length = lseek(f_read, 0, SEEK_END); //seeks to the end of file and returns integer
+    printf("Length of file is: %d\n", length);
     length = length + 1; //to create size of character array
 
     int beg = lseek(f_read, 0, SEEK_SET); //sets read back to the beginning
+    printf("Should be back at beg: %d\n", beg);
 
     char arr[length]; //array to parse through
     arr[1] = '\0';    //array needs to be null terminated to prevent junk
-    printbuff1[1] = '\0';    //array needs to be null terminated to prevent junk
-    printbuff2[1] = '\0';    //array needs to be null terminated to prevent junk
     int fd_1 = open("MyFile.txt", O_RDONLY);
+    printf("value of *str is: %d\n", *str);
 
             strcat(printbuff2, str);
     // reader(f_read, length, arr, str);
 
     while ((length = read(f_read, arr, 1)) > 0)
     {
+        // printf("%s", arr);
+        // if (strncmp(arr, str, length) == 0 && colon % 6 == 0)
+        // {
+        //     printf("%s", arr);
+        //     colon++;
+        //     // break;
+        // }else if(strncmp(arr, str, length) == 0){
+        //     colon++;
+        // }
+
+        // printf("%s", arr); //test print
+        // colon++;
+        // break;
+
         int size1;
         int size2;
 
@@ -72,3 +92,17 @@ int main(void)
     return 0;
 }
 
+// void reader(int f_read,  int length, char arr[length], char *str)
+// {
+//     char arr[length]; //array to parse through
+//     arr[1] = '\0';    //array needs to be null terminated to prevent junk
+
+//     while ((length = read(f_read, arr, 1)) > 0)
+//     {
+//         printf("%s", arr);
+//         if (strncmp(arr, str, length) == 0)
+//         {
+//             break;
+//         }
+//     }
+// }

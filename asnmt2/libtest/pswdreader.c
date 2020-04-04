@@ -1,13 +1,16 @@
 // /Giovanni Vittozzi
 // /CSC 290Z
-// /Due date: 3/9/2020
+// /Due date: //2020
 
 #include <math.h>
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
+#include "lib.h"
 
 #define BUFFERSIZE 4096
+
+void printa(char printbuff1[], int size);
 
 int main(void)
 {
@@ -59,7 +62,7 @@ int main(void)
         }
         size = size1 + size2;
     }
-    write(STDOUT_FILENO, printbuff1, size); //write buffer to stdout
+    printa(printbuff1, size); //write buffer to stdout
 
     close(f_read);
     return 0;
